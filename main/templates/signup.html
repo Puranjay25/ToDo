@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Signup Form</title>
+  {% include 'headers.html' %}
+</head>
+<body>
+  {% include 'navbar.html' %}
+  {% include 'messages.html' %}
+  <div class="container">
+    <h2>Signup form</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Username:</label>
+        <input type="text" class="form-control" placeholder="Enter username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" class="form-control" placeholder="Enter email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" placeholder="Enter password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label>Confirm Password:</label>
+        <input type="password" class="form-control" placeholder="Re-Enter password" name="confirm_password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+      Already Registered?. Login <a href="{% url 'main:login' %}">here</a>
+    </form>
+  </div>
+
+</body>
+</html>

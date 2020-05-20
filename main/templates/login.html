@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login Form</title>
+  {% include 'headers.html' %}
+</head>
+<body>
+  {% include 'navbar.html' %}
+  {% include 'messages.html' %}
+<div class="container">
+  <h2>Login form</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Username" name="username" required>
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" placeholder="Password" name="password" required>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Login</button>
+    New user?. First signup <a href="{% url 'main:signup' %}">here</a>
+  </form>
+</div>
+
+</body>
+</html>

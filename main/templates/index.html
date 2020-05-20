@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>To-Do App</title>
+	{% include 'headers.html' %}
+</head>
+<body>
+	{% include 'navbar.html' %}
+	<a href="{% url 'main:signup' %}">Signup</a><br>
+	<a href="{% url 'main:login' %}">Login</a>
+</body>
+</html>

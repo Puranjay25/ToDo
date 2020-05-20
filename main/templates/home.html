@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	{% include 'headers.html' %}
+</head>
+<body>
+	{% include 'navbar.html' %}
+	{% include 'messages.html' %}
+	Welcome {{user}}
+	<form method="post">
+		{% csrf_token %}
+		<div class="form-group">
+	        <label>New To-Do:</label>
+	        <input type="text" class="form-control" placeholder="Enter you new to-do here..." name="todo" required>
+	  	</div>
+	  	<button type="submit" class="btn btn-primary">Register</button>
+	</form>
+</body>
+</html>
