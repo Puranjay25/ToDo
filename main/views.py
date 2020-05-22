@@ -4,8 +4,10 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_user
+from django.contrib.auth import logout as logout_user
 from .models import ToDo
 import uuid
+from datetime import date
 # Create your views here.
 def index(request):
 	return render(request, "index.html")
@@ -66,9 +68,31 @@ def login(request):
 def home(request):
 	user = request.user
 	if request.method == "POST":
-		user_object = User.objects.get(username=user)
-		todo = request.POST["todo"]
-		todo_id = str(uuid.uuid4())
-		ToDo.objects.create(todo_id = todo_id, user=user_object, todo=todo)
+		if 'new' in request.POST:
+			user_object = User.objects.get(username=user)
+			todo = request.POST["todo"]
+			todo_id = str(uuid.uuid4())
+			date_created = date.today()
+			ToDo.objects.create(todo_id = todo_id, user=user_object, todo=todo, date_created=date_created)
+		elif 'archive' in request.POST:
+			todo_id = request.POST["archive"]
+			ToDo.objects.filter(todo_id=todo_id).update(is_completed=True)
+			return redirect("main:home")
+		elif 'delete' in request.POST:
+			todo_id = request.POST["delete"]
+			ToDo.objects.filter(todo_id=todo_id).delete()
+			messages.success(request, "ToDo deleted successfully!")
+			return redirect("main:home")
+		elif 'unarchive' in request.POST:
+			todo_id = request.POST["unarchive"]
+			ToDo.objects.filter(todo_id=todo_id).update(is_completed=False)
+			return redirect("main:home")
+
 		return redirect('main:home')
-	return render(request, "home.html", {"user": user})
+	todos = ToDo.objects.filter(user=user, is_completed=False).order_by("-date_created")
+	completed_todos = ToDo.objects.filter(user=user, is_completed=True).order_by("-date_created")
+	return render(request, "home.html", {"user": user, "todos": todos, "completed_todos": completed_todos})
+
+def logout(request):
+	logout_user(request)
+	return redirect("main:index")
