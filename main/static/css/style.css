@@ -6,3 +6,47 @@
   width: 500px;
   height: 500px;
 }
+.ml6 {
+  position: relative;
+  font-weight: 900;
+  font-size: 3.3em;
+}
+
+.ml6 .text-wrapper {
+  position: relative;
+  display: inline-block;
+  padding-top: 0.2em;
+  padding-right: 0.05em;
+  padding-bottom: 0.1em;
+  overflow: hidden;
+}
+
+.ml6 .letter {
+  display: inline-block;
+  line-height: 1em;
+  text-align: center;
+}
+
+.lead
+{
+	padding-top: 60px;
+	padding-left: 50px;
+}
+
+#todo-box
+{
+	width: 500px;
+	padding-left: 30px;
+	margin-left: 50px;
+}
+
+#addbutton
+{
+	padding-left: 10px;
+	margin-left: 50px;
+}
+
+#archived
+{
+	margin-left: 610px;
+}

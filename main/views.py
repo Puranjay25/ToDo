@@ -8,9 +8,11 @@ from django.contrib.auth import logout as logout_user
 from .models import ToDo
 import uuid
 from datetime import date
+
 # Create your views here.
 def index(request):
-	return render(request, "index.html")
+	user = request.user
+	return render(request, "index.html", {"user": user})
 
 def signup(request):
 	if request.method == "POST":
@@ -41,8 +43,8 @@ def signup(request):
 			return redirect("main:login")
 		except Exception as e:
 			raise e
-
-	return render(request, "signup.html")
+	user = request.user
+	return render(request, "signup.html", {"user": user})
 
 def login(request):
 	if request.method == "POST":
@@ -57,13 +59,15 @@ def login(request):
 		if user is not None:
 			try:
 				login_user(request, user)
+				is_loggedin = True
 			except Exception as e:
 				raise e
 
 			# messages.success(request, "Logged in successfully")
 			return redirect('main:home')
 
-	return render(request, "login.html")
+	user = request.user
+	return render(request, "login.html", {"user": user})
 
 def home(request):
 	user = request.user
@@ -91,8 +95,9 @@ def home(request):
 		return redirect('main:home')
 	todos = ToDo.objects.filter(user=user, is_completed=False).order_by("-date_created")
 	completed_todos = ToDo.objects.filter(user=user, is_completed=True).order_by("-date_created")
-	return render(request, "home.html", {"user": user, "todos": todos, "completed_todos": completed_todos})
+	return render(request, "home.html", {"user": user, "todos": todos, "completed_todos": completed_todos} )
 
 def logout(request):
 	logout_user(request)
+	# user = request.user
 	return redirect("main:index")

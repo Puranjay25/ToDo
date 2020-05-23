@@ -7,22 +7,21 @@
 <body>
 	{% include 'navbar.html' %}
 	{% include 'messages.html' %}
-	Welcome {{user}}
 
 	<form method="post">
 		{% csrf_token %}
 		<div class="form-group">
-	        <label>New To-Do:</label>
-	        <input type="text" class="form-control" placeholder="Enter you new to-do here..." name="todo" required>
+	        <label class="lead">New To-Do:</label>
+	        <input id="todo-box" type="text" class="form-control" placeholder="Enter you new to-do here..." name="todo" required>
 	  	</div>
-	  	<button type="submit" class="btn btn-primary" name="new">Register</button>
+	  	<button type="submit" class="btn btn-primary" name="new" id="addbutton">Add New Todo</button>
 	 </form>
 
-	<div class="container">
+<!-- 	<div class="container">
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
    		 Archived ToDo
   		</button>
-	</div>
+	</div> -->
 
 	 <form method="post">
 	 	{% csrf_token %}
@@ -66,8 +65,13 @@
 	  	</div>
 	  	
 		<div class="container">
-		  <h2>{{user}}'s ToDo List</h2>
-		  <p>View/Edit/Delete</p>            
+		  <h2>
+		  	{{user}}'s ToDo List
+		  	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="archived">
+   		 		Archived ToDo
+  			</button> 
+		  </h2>
+		  <!-- <p>View/Edit/Delete</p>   -->         
 		  <table class="table table-dark table-striped">
 		    <thead>
 		      <tr>

@@ -3,14 +3,19 @@
     <li class="nav-item active">
       <a class="nav-link" href="#">Todo APP</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" {% if user.is_authenticated %} hidden {% endif %}>
       <a class="nav-link" href="{% url 'main:signup' %}">Signup</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" {% if user.is_authenticated %} hidden {% endif %}>
       <a class="nav-link" href="{% url 'main:login' %}">Login</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" {% if not user.is_authenticated %} hidden {% endif %}>
       <a class="nav-link" href="{% url 'main:logout' %}">Logout</a>
     </li>
+    <li class="nav-item">
+	    {% if user.is_authenticated %}
+	    	<a class="nav-link"><strong>Welcome {{user}}</strong></a>
+	    {% endif %}
+	</li>
   </ul>
 </nav>
